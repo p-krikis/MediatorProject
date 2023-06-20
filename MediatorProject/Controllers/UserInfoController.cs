@@ -31,7 +31,31 @@ namespace MediatorProject.Controllers
             };
 
             var userId = await _mediator.Send(command);
-            return Ok();
+            return StatusCode(201);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> UserAuthentication([FromBody] UserParsingModels content)
+        {
+            var command = new AuthenticateUserCommand(content.Email, content.Password);
+            var result = await _mediator.Send(command);
+
+            if (result == null)
+            {
+                return Unauthorized();
+            }
+            else
+            {
+                return Ok(result);
+            }
+        }
+
+        [HttpPost("fetchInfo")]
+        public async Task<IActionResult> FetchUserInfo([FromBody] RequestData content)
+        {
+            var command = new FetchUserInfoCommand(content.userId);
+            var userInfo = await _mediator.Send(command);
+            return Ok(userInfo);
         }
     }
 }
