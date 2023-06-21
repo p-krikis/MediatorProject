@@ -3,6 +3,7 @@ using MediatorProject.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace MediatorProject.Controllers
 {
@@ -56,6 +57,23 @@ namespace MediatorProject.Controllers
             var command = new FetchUserInfoCommand(content.userId);
             var userInfo = await _mediator.Send(command);
             return Ok(userInfo);
+        }
+
+        [HttpPut("updateInfo")]
+        public async Task<IActionResult> UpdateUserInfo([FromBody] UpdatedInfo updInfo)
+        {
+            string fullInfo = JsonConvert.SerializeObject(updInfo);
+            var command = new UpdateUserInfoCommand(updInfo.UserId, updInfo.Email, updInfo.Username, updInfo.DisplayName, updInfo.Role, fullInfo);
+            await _mediator.Send(command);
+            return Ok("Updated");
+        }
+
+        [HttpDelete("deleteUser")]
+        public async Task<IActionResult> DeleteUser([FromBody] RequestData content)
+        {
+            var command = new DeleteUserCommand(content.userId);
+            await _mediator.Send(command);
+            return Ok("Deleted");
         }
     }
 }

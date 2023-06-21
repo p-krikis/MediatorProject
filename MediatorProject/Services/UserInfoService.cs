@@ -107,7 +107,7 @@ namespace MediatorProject.Services
 
             return updUserListId;
         }
-        public async Task DeleteUserByListId(string userid)
+        public async Task DeleteUser(string userid)
         {
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
