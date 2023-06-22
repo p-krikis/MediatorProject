@@ -55,7 +55,6 @@ namespace MediatorProject.Services
 
         public async Task<string> LoadSingleList(string targetUserId, string targetListName)
         {
-            var test = "awdawd";
             using (var connection = new SqlConnection(_configuration.GetConnectionString("DefaultConnection")))
             {
                 connection.Open();
