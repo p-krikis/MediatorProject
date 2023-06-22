@@ -63,3 +63,9 @@ namespace MediatorProject.Controllers
         }
     }
 }
+
+//===ENDPOINTS===//
+//https://localhost:7016/api/ListInfo/saveList           //
+//https://localhost:7016/api/ListInfo/loadAllLists       //
+//https://localhost:7016/api/ListInfo/loadSingleList     //
+//https://localhost:7016/api/ListInfo/deleteList         //
